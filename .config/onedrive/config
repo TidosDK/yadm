@@ -1,0 +1,10 @@
+#sync_dir = ~/OneDrive
+skip_dir = "3D print|Dokumenter|Gamle skole ting|Minecraft|Minilan|Musik"
+
+# Automatically remove local files deleted remotely
+#remove_deleted_files = true
+
+# Automatically delete files on OneDrive that were deleted locally
+#remove_remote_deleted = true
+
+#rate_limit = 4194304
