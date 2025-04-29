@@ -1,0 +1,2 @@
+
+alias bi='bash-it'
