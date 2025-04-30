@@ -1,1 +1,4 @@
+# Adds a blank line before each prompt. Improves readability.
+PROMPT_COMMAND='echo "";'
+
 neofetch
