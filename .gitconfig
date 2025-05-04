@@ -1,3 +1,11 @@
 [user]
 	email = git@msnn.dev
 	name = TidosDK
+[push]
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[rebase]
+	autoStash = true
+[pull]
+	rebase = true
