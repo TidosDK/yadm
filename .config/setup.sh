@@ -9,7 +9,7 @@ fi
 
 apt update
 
-declare -a apt_packages=("tmux" "ranger" "fzf" "neofetch")
+declare -a apt_packages=("tmux" "ranger" "fzf" "neofetch" "kubectx")
 
 for package in "${apt_packages[@]}"
 do

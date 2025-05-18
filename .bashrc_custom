@@ -1,3 +1,12 @@
+# Changes the default behavior of the `git` command to show a more readable log format.
+git() {
+  if [[ "$1" == "log" && "$#" -eq 1 ]]; then
+    command git log --all --graph --pretty=format:'%C(magenta)%h %C(white)%an  %ar%C(auto) %D%n%s%n'
+  else
+    command git "$@"
+  fi
+}
+
 # Adds a blank line before each prompt. Improves readability.
 PROMPT_COMMAND='echo "";'
 
