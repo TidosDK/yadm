@@ -1,11 +1,61 @@
 [user]
 	email = git@msnn.dev
 	name = TidosDK
+	signingkey = /home/matty/.ssh/id_ed25519_signing.pub
+
+[core]
+	compression = 9
+	whitespace = error
+	preloadIndex = true
+
+[advice]
+	statusHints = false
+
+[status]
+	branch = true
+	showStash = true
+	showUntrackedFiles = all
+
+[commit]
+	gpgSign = true
+
+[gpg]
+	format = ssh
+
 [push]
 	autoSetupRemote = true
-[fetch]
-	prune = true
+	default = current
+	followTags = true
+
+[pull]
+	default = current
+	rebase = true
+
 [rebase]
 	autoStash = true
-[pull]
-	rebase = true
+
+[fetch]
+	prune = true
+
+[diff]
+	context = 3
+	renames = copies
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = -taggerdate
+
+[init]
+	defaultBranch = main
+
+[log]
+	abbrevCommit = true
+	graphColors = blue,yellow,cyan,magenta,green,red
+
+[color "decorate"]
+	HEAD = red
+	branch = blue
+	tag = yellow
+	remoteBranch = magenta
