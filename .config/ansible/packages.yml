@@ -1,0 +1,169 @@
+- hosts: localhost
+  name: Install packages
+  connection: local
+  become: true
+
+  vars_files:
+    - vars/packages.json
+
+  vars:
+    docker_arch_map:
+      x86_64: amd64
+      aarch64: arm64
+      armv7l: armhf
+      armv6l: armhf
+      ppc64le: ppc64el
+      s390x: s390x
+    docker_deb_arch: "{{ docker_arch_map.get(ansible_architecture, 'amd64') }}"
+    docker_repo_codename: "{{ ansible_distribution_release }}"
+    docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+  pre_tasks:
+    - name: Ensure repo tooling is present
+      ansible.builtin.apt:
+        name:
+          - software-properties-common   # provides add-apt-repository
+          - gnupg
+          - ca-certificates
+          - curl
+          - apt-transport-https
+          - lsb-release
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Refresh APT cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Upgrade installed packages (no removals)
+      ansible.builtin.apt:
+        upgrade: yes   # use "dist" for full/Kernel upgrades that may add/remove packages
+      when: apt_do_upgrade | default(true)
+      tags: [apt-upgrade]
+
+
+  tasks:
+    # Install APT packages
+    - name: Ensure PPAs present
+      ansible.builtin.apt_repository:
+        repo: "{{ item }}"
+        state: present
+      loop: "{{ apt_ppas | default([]) }}"
+
+    - name: Install APT packages
+      ansible.builtin.apt:
+        name: "{{ apt_packages }}"
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+
+    # Install docker
+    - name: Remove conflicting distro Docker packages
+      ansible.builtin.apt:
+        name:
+          - docker.io
+          - docker-doc
+          - podman-docker
+          - containerd
+          - runc
+        state: absent
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Ensure keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Download Docker GPG key (ASCII)
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: '0644'
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Convert Docker key to GPG dearmored keyring
+      ansible.builtin.command:
+        cmd: gpg --dearmor -o /etc/apt/keyrings/docker.gpg /etc/apt/keyrings/docker.asc
+      args:
+        creates: /etc/apt/keyrings/docker.gpg
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Set permissions on Docker keyring
+      ansible.builtin.file:
+        path: /etc/apt/keyrings/docker.gpg
+        mode: '0644'
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Add Docker APT repository
+      ansible.builtin.apt_repository:
+        repo: >-
+          deb [arch={{ docker_deb_arch }} signed-by=/etc/apt/keyrings/docker.gpg]
+          https://download.docker.com/linux/ubuntu {{ docker_repo_codename }} stable
+        filename: docker
+        state: present
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Install Docker engine and plugins
+      ansible.builtin.apt:
+        name: "{{ docker_packages }}"
+        state: present
+        update_cache: true
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Enable and start Docker
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+      when: docker_install | default(false)
+      tags: [docker]
+
+    - name: Ensure users are in the docker group
+      ansible.builtin.user:
+        name: "{{ item }}"
+        groups: docker
+        append: true
+      loop: "{{ docker_users | default([]) }}"
+      when: docker_install | default(false)
+      tags: [docker]
+
+
+  post_tasks:
+    - name: Check if a reboot is required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
+    - name: Read list of packages that triggered the reboot requirement
+      ansible.builtin.slurp:
+        src: /var/run/reboot-required.pkgs
+      register: reboot_pkgs
+      when: reboot_required.stat.exists
+      no_log: true  # file may not exist; hide noisy output
+
+    - name: Notify user to reboot (with details if available)
+      ansible.builtin.debug:
+        msg: >-
+          A reboot is required. Packages:
+          {{
+            (reboot_pkgs.content | default('') | b64decode | trim | splitlines())
+            if reboot_pkgs is defined else
+            'not specified by the system'
+          }}
+      when: reboot_required.stat.exists
