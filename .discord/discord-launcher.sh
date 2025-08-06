@@ -25,6 +25,7 @@ get_latest_version() {
 
 # Function to update Discord
 update_discord() {
+    echo "Installing new discord version"
     sudo dpkg -i "$TEMP_DIR/discord.deb"
     rm -rf "$TEMP_DIR"
 }
@@ -42,7 +43,7 @@ get_latest_version
 if [ "$INSTALLED_VERSION" != "$LATEST_VERSION" ]; then
     echo "Updating Discord from version $INSTALLED_VERSION to $LATEST_VERSION"
     # Close Discord if running
-    pkill discord
+    #pkill discord
     sleep 5  # Wait a few seconds to ensure Discord is closed
     # Update Discord
     update_discord
