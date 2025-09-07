@@ -95,7 +95,7 @@ format = "[ ](fg:#2f2f2f)[ ${symbol}$branch]($style)"
 
 [git_status]
 style = "fg:#ffeb3b bg:#2f2f2f"
-format = '[( $ahead_behind$staged$modified$untracked$stashed )]($style)[](fg:#2f2f2f)'
+format = '[( $ahead_behind$staged$modified$untracked$stashed)]($style)[ ](bg:#2f2f2f)[](fg:#2f2f2f)'
 
 # --- Node.js -----------------------------------------------------------------
 [nodejs]
