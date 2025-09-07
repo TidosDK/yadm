@@ -1,17 +1,146 @@
-format = """
-$directory\
-$git_branch\
-$git_status\
-$fill\
-$terraform\
-$lua\
-$python\
-$nodejs\
-$docker_context\
-$jobs\
-$cmd_duration\
-$line_break\
-$character"""
+#  ~/.config/starship.toml
+#  Adapted from your Oh-my-Posh JSON, updated for Starship 1.19+
 
+###############################################################################
+# GLOBAL OPTIONS
+###############################################################################
+add_newline = false          # we put the newline ourselves in `format`
+command_timeout = 1000       # ms
+
+###############################################################################
+# PROMPT LAYOUT
+###############################################################################
+format = """
+$line_break\
+[](#2f2f2f)\
+$os$username$hostname$custom_root$directory$git_branch$git_status\
+$fill\
+$nodejs$python$dotnet$time\
+[](#2f2f2f)\
+$line_break\
+$character
+"""
+
+# `right_format` is unused because we already insert a `$fill` above.
+
+###############################################################################
+# MODULE DEFINITIONS
+###############################################################################
+
+# --- Operating system --------------------------------------------------------
+[os]
+style      = "fg:#26C6DA bg:#2f2f2f"
+format     = "[ $symbol ]($style)(fg:#2f2f2f)"
+disabled   = false
+
+[os.symbols]
+Alpine     = "\uf300"
+Arch       = "\uf303"
+CentOS     = "\uf304"
+Debian     = "\uf306"
+Fedora     = "\uf30a"
+Gentoo     = "\uf30d"
+Linux      = "\ue712"
+Macos      = "\ue711"
+Manjaro    = "\uf312"
+Mint       = "\uf30f"
+openSUSE   = "\uf314"
+Raspbian   = "\uf315"
+Ubuntu     = "\uf31c"
+Windows    = "\ue70f"
+
+# --- Username ----------------------------------------------------------------
+[username]
+show_always  = true                # only when not the login user/root/ssh
+style_user   = "fg:#77f5d6 bg:#2f2f2f"
+style_root   = "fg:#ffff66 bg:#2f2f2f"
+format       = "[ $user]($style)[@](fg:#777777 bg:#2f2f2f)"
+
+# --- Hostname ----------------------------------------------------------------
+[hostname]
+ssh_only = false
+style    = "fg:#2EEFBF bg:#2f2f2f"
+format   = "[$hostname ]($style)[ ](fg:#2f2f2f)"
+
+# --- Root lightning (custom) -------------------------------------------------
+[custom.root]
+command = "printf ''"
+when    = "[[ $EUID -eq 0 ]]"
+style   = "fg:#ffff66 bg:#2f2f2f"
+format  = "[ $output ]($style)[](fg:#2f2f2f)"
+
+# --- Fill --------------------------------------------------------------------
 [fill]
 symbol = ' '
+
+# --- Character ---------------------------------------------------------------
+[character]
+success_symbol = '[ ❯](fg:#7a7a7a) '
+error_symbol = '[ ✗](bold red) '
+
+# --- Directory / Path --------------------------------------------------------
+[directory]
+truncation_length = 10
+truncation_symbol = '.../'
+truncate_to_repo = false
+style             = "fg:#f2f200 bg:#2f2f2f"
+read_only         = " "
+format            = "[](fg:#2f2f2f)[  $path ]($style)[](fg:#2f2f2f)"
+
+# --- Git branch & status -----------------------------------------------------
+[git_branch]
+symbol = "\uf09b\ue0a0"
+style  = "fg:#ffeb3b bg:#2f2f2f"
+format = "[ ](fg:#2f2f2f)[ ${symbol}$branch]($style)"
+
+[git_status]
+style = "fg:#ffeb3b bg:#2f2f2f"
+format = '[( $ahead_behind$staged$modified$untracked$stashed )]($style)[](fg:#2f2f2f)'
+
+# --- Node.js -----------------------------------------------------------------
+[nodejs]
+symbol = ""
+style  = "fg:#6CA35E bg:#2f2f2f"
+format = "[](fg:#2f2f2f)[ $symbol $version ]($style)[ ](fg:#2f2f2f)"
+
+# --- Python ------------------------------------------------------------------
+[python]
+symbol = ""
+style  = "fg:#96E072 bg:#2f2f2f"
+format = "[](fg:#2f2f2f)[ $symbol $version $virtualenv ]($style)[ ](fg:#2f2f2f)"
+pyenv_version_name = false
+pyenv_prefix = ""
+
+
+# --- .NET --------------------------------------------------------------------
+[dotnet]
+symbol = ""
+style  = "fg:#3891A6 bg:#2f2f2f"
+format = "[](fg:#2f2f2f)[ $symbol $version ]($style)[ ](fg:#2f2f2f)"
+
+# --- Time --------------------------------------------------------------------
+[time]
+disabled    = false
+time_format = "%T"
+style       = "fg:#fafafa bg:#2f2f2f"
+format      = "[](fg:#2f2f2f)[ $time ]($style)"
+
+# --- Command duration --------------------------------------------------------
+[cmd_duration]
+min_time = 500              # ms, same threshold you had
+style    = "fg:#FFCE5C"
+format   = " [$duration ]($style)"
+
+# --- Exit status -------------------------------------------------------------
+[status]
+symbol       = ""
+success_symbol = ""
+style        = "fg:#9FD356"
+format       = " [$symbol $status]($style)"
+map_symbol   = true  # so non-zero codes show
+
+###############################################################################
+# DISABLE EVERYTHING ELSE FOR SPEED
+###############################################################################
+[battery]        # just an example; add other modules you don't want
+disabled = true

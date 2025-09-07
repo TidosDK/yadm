@@ -1,0 +1,29 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$terraform\
+$lua\
+$python\
+$nodejs\
+$docker_context\
+$jobs\
+$cmd_duration\
+$line_break\
+$character"""
+
+[fill]
+symbol = ' '
+
+[directory]
+truncation_length = 10
+truncation_symbol = '.../'
+truncate_to_repo = false
+
+[python]
+style = 'fg:white'
+python_binary = ['python3.12']
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+pyenv_version_name = false
+pyenv_prefix = ""
