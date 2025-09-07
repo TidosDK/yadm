@@ -15,7 +15,7 @@ $line_break\
 [](#2f2f2f)\
 $os$username$hostname$custom_root$directory$git_branch$git_status\
 $fill\
-$nodejs$python$dotnet$time\
+$nodejs$python$dotnet$c$cobol$dart$golang$guix_shell$helm$java$kotlin$lua$perl$php$pulumi$ruby$rust$scala$terraform$time\
 [](#2f2f2f)\
 $line_break\
 $character
@@ -54,7 +54,7 @@ Windows    = "\ue70f"
 show_always  = true                # only when not the login user/root/ssh
 style_user   = "fg:#77f5d6 bg:#2f2f2f"
 style_root   = "fg:#ffff66 bg:#2f2f2f"
-format       = "[ $user]($style)[@](fg:#777777 bg:#2f2f2f)"
+format       = "[ $user]($style)[](fg:#777777 bg:#2f2f2f)"
 
 # --- Hostname ----------------------------------------------------------------
 [hostname]
@@ -111,6 +111,17 @@ format = "[](fg:#2f2f2f)[ $symbol $version $virtualenv ]($style)[ ](fg:#2f
 pyenv_version_name = false
 pyenv_prefix = ""
 
+# --- Terraform ---------------------------------------------------------------
+[terraform]
+symbol = "󱁢"
+style  = "fg:#7b41ba bg:#2f2f2f"
+format = "[](fg:#2f2f2f)[ $symbol $version ]($style)[ ](fg:#2f2f2f)"
+
+# --- Helm ---------------------------------------------------------------
+[helm]
+symbol = ""
+style  = "fg:#1b53c2 bg:#2f2f2f"
+format = "[](fg:#2f2f2f)[ $symbol $version ]($style)[ ](fg:#2f2f2f)"
 
 # --- .NET --------------------------------------------------------------------
 [dotnet]
@@ -138,6 +149,99 @@ success_symbol = ""
 style        = "fg:#9FD356"
 format       = " [$symbol $status]($style)"
 map_symbol   = true  # so non-zero codes show
+
+# --- Symbols -----------------------------------------------------------------
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[bun]
+symbol = " "
+
+[c]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[deno]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[gcloud]
+symbol = "  "
+
+[git_commit]
+tag_symbol = '  '
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+
+
 
 ###############################################################################
 # DISABLE EVERYTHING ELSE FOR SPEED
