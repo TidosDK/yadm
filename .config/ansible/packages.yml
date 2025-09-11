@@ -143,8 +143,157 @@
       when: docker_install | default(false)
       tags: [docker]
 
+    # Install Cloudflared
+    - name: Ensure keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+      when: cloudflared_install | default(false)
+      tags: [cloudflared]
 
-  post_tasks:
+    - name: Download Cloudflare GPG key
+      ansible.builtin.get_url:
+        url: https://pkg.cloudflare.com/cloudflare-main.gpg
+        dest: /etc/apt/keyrings/cloudflare-main.gpg
+        mode: '0644'
+      when: cloudflared_install | default(false)
+      tags: [cloudflared]
+
+    - name: Add Cloudflared APT repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared {{ ansible_distribution_release | lower }} main"
+        filename: cloudflared
+        state: present
+      when: cloudflared_install | default(false)
+      tags: [cloudflared]
+
+    - name: Install cloudflared
+      ansible.builtin.apt:
+        name: cloudflared
+        state: present
+        update_cache: true
+      when: cloudflared_install | default(false)
+      tags: [cloudflared]
+
+      # Install Tailscale
+    - name: Ensure keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+      when: tailscale_install | default(false)
+      tags: [tailscale]
+
+    - name: Download Tailscale GPG key
+      ansible.builtin.get_url:
+        url: https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg
+        dest: /etc/apt/keyrings/tailscale-archive-keyring.gpg
+        mode: '0644'
+      when: tailscale_install | default(false)
+      tags: [tailscale]
+
+    - name: Download Tailscale APT source list
+      ansible.builtin.get_url:
+        url: https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list
+        dest: /etc/apt/sources.list.d/tailscale.list
+        mode: '0644'
+      when: tailscale_install | default(false)
+      tags: [tailscale]
+
+    - name: Install tailscale
+      ansible.builtin.apt:
+        name: tailscale
+        state: present
+        update_cache: true
+      when: tailscale_install | default(false)
+      tags: [tailscale]
+
+      # Install Terraform
+    - name: Ensure keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+      when: terraform_install | default(false)
+      tags: [terraform]
+
+    - name: Download HashiCorp GPG key
+      ansible.builtin.get_url:
+        url: https://apt.releases.hashicorp.com/gpg
+        dest: /etc/apt/keyrings/hashicorp-archive-keyring.asc
+        mode: '0644'
+      when: terraform_install | default(false)
+      tags: [terraform]
+
+    - name: Convert HashiCorp GPG key to dearmored format
+      ansible.builtin.command:
+        cmd: gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg /etc/apt/keyrings/hashicorp-archive-keyring.asc
+      args:
+        creates: /etc/apt/keyrings/hashicorp-archive-keyring.gpg
+      when: terraform_install | default(false)
+      tags: [terraform]
+
+    - name: Add HashiCorp APT repository
+      ansible.builtin.apt_repository:
+        repo: >-
+          deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release | lower }} main
+        filename: hashicorp
+        state: present
+      when: terraform_install | default(false)
+      tags: [terraform]
+
+    - name: Install terraform
+      ansible.builtin.apt:
+        name: terraform
+        state: present
+        update_cache: true
+      when: terraform_install | default(false)
+      tags: [terraform]
+
+      # Install Helm
+    - name: Ensure keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+      when: helm_install | default(false)
+      tags: [helm]
+
+    - name: Download Helm GPG key
+      ansible.builtin.get_url:
+        url: https://baltocdn.com/helm/signing.asc
+        dest: /etc/apt/keyrings/helm.asc
+        mode: '0644'
+      when: helm_install | default(false)
+      tags: [helm]
+
+    - name: Convert Helm GPG key to dearmored keyring
+      ansible.builtin.command:
+        cmd: gpg --dearmor -o /etc/apt/keyrings/helm.gpg /etc/apt/keyrings/helm.asc
+      args:
+        creates: /etc/apt/keyrings/helm.gpg
+      when: helm_install | default(false)
+      tags: [helm]
+
+    - name: Add Helm APT repository
+      ansible.builtin.apt_repository:
+        repo: >-
+          deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/helm.gpg]
+          https://baltocdn.com/helm/stable/debian/ all main
+        filename: helm
+        state: present
+      when: helm_install | default(false)
+      tags: [helm]
+
+    - name: Install Helm
+      ansible.builtin.apt:
+        name: helm
+        state: present
+        update_cache: true
+      when: helm_install | default(false)
+      tags: [helm]
+
     - name: Check if a reboot is required
       ansible.builtin.stat:
         path: /var/run/reboot-required
@@ -162,7 +311,7 @@
         msg: >-
           A reboot is required. Packages:
           {{
-            (reboot_pkgs.content | default('') | b64decode | trim | splitlines())
+            (reboot_pkgs.content | default('') | b64decode | trim | split('\n'))
             if reboot_pkgs is defined else
             'not specified by the system'
           }}

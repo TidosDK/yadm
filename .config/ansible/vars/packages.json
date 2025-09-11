@@ -2,20 +2,16 @@
   "apt_ppas": ["ppa:zhangsongcui3371/fastfetch"],
   "apt_packages": [
     "ansible",
-    "cloudflared",
     "curl",
     "fastfetch",
     "fzf",
     "git",
-    "helm",
     "htop",
     "iputils-ping",
     "jq",
     "kubectx",
     "net-tools",
     "ranger",
-    "tailscale",
-    "terraform",
     "tmux",
     "yadm"
   ]

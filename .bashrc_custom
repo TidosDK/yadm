@@ -10,4 +10,7 @@ git() {
 # Adds a blank line before each prompt. Improves readability.
 #PROMPT_COMMAND='echo "";'
 
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init bash)"
+
 fastfetch
