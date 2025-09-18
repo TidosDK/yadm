@@ -7,10 +7,23 @@ git() {
   fi
 }
 
+# TMUX setup
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  if tmux has-session 2>/dev/null; then
+    exec tmux attach
+  else
+    exec tmux
+  fi
+fi
+
 # Adds a blank line before each prompt. Improves readability.
 #PROMPT_COMMAND='echo "";'
 
+# Starship setup
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init bash)"
+
+# Zoxide
+eval "$(zoxide init bash)"
 
 fastfetch
