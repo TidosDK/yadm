@@ -2,7 +2,7 @@
 /* Author: Newman Sanchez (https://github.com/newmanls) */
 
 * {
-    font:   "JetBrainsMono Nerd Font Medium 12";
+    font:   "JetBrainsMono Nerd Font Medium 16";
 
     bg0:     #2B3339EE;
     bg1:     #323D43;
@@ -22,7 +22,7 @@
 
 window {
     location:   center;
-    width:      540;
+    width:      640;
 
     background-color:   @bg0;
 }
@@ -49,7 +49,7 @@ textbox {
 
 listview {
     padding:    4px 0;
-    lines:      8;
+    lines:      10;
     columns:    1;
 
     fixed-height:   false;
