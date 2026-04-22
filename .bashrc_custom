@@ -16,14 +16,12 @@ git() {
   fi
 }
 
-# Adds a blank line before each prompt. Improves readability.
-#PROMPT_COMMAND='echo "";'
-
 # Starship setup
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init bash)"
 
 # Zoxide
+export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(zoxide init bash)"
 
-#fastfetch
+fastfetch
