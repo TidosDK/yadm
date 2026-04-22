@@ -1,12 +1,3 @@
-# Changes the default behavior of the `git` command to show a more readable log format.
-git() {
-  if [[ "$1" == "log" && "$#" -eq 1 ]]; then
-    command git log --all --graph --pretty=format:'%C(magenta)%h %C(white)%an  %ar%C(auto) %D%n%s%n'
-  else
-    command git "$@"
-  fi
-}
-
 # TMUX setup
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   if tmux has-session 2>/dev/null; then
@@ -15,6 +6,15 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     exec tmux
   fi
 fi
+
+# Changes the default behavior of the `git` command to show a more readable log format.
+git() {
+  if [[ "$1" == "log" && "$#" -eq 1 ]]; then
+    command git log --all --graph --pretty=format:'%C(magenta)%h %C(white)%an  %ar%C(auto) %D%n%s%n'
+  else
+    command git "$@"
+  fi
+}
 
 # Adds a blank line before each prompt. Improves readability.
 #PROMPT_COMMAND='echo "";'
@@ -26,4 +26,4 @@ eval "$(starship init bash)"
 # Zoxide
 eval "$(zoxide init bash)"
 
-fastfetch
+#fastfetch

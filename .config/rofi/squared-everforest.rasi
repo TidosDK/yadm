@@ -2,7 +2,7 @@
 /* Author: Newman Sanchez (https://github.com/newmanls) */
 
 * {
-    font:   "JetBrainsMono Nerd Font Medium 16";
+    font:   "JetBrainsMono Nerd Font Medium 14";
 
     bg0:     #2B3339EE;
     bg1:     #323D43;
