@@ -1,4 +1,6 @@
 # General tools
+brew "age"
+brew "ansible"
 brew "atuin"
 brew "butane"
 brew "eza"
@@ -8,14 +10,20 @@ brew "helm"
 brew "htop"
 brew "jq"
 brew "just"
+brew "k9s"
 brew "kubectl"
 brew "kubectx"
+brew "nmap"
+brew "nvtop"
+brew "ranger"
 brew "starship"
 brew "tmux"
+brew "yadm"
 brew "zoxide"
 
 
 # Rust + Rust packages
+brew "cargo-binstall"
 brew "cargo-watch"
 brew "dysk"
 brew "rustup-init"
