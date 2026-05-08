@@ -1,0 +1,21 @@
+# General tools
+brew "atuin"
+brew "butane"
+brew "eza"
+brew "fastfetch"
+brew "fzf"
+brew "helm"
+brew "htop"
+brew "jq"
+brew "just"
+brew "kubectl"
+brew "kubectx"
+brew "starship"
+brew "tmux"
+brew "zoxide"
+
+
+# Rust + Rust packages
+brew "cargo-watch"
+brew "dysk"
+brew "rustup-init"

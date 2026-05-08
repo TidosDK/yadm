@@ -62,3 +62,5 @@
 	remoteBranch = magenta
 [alias]
 	difflf = diff --ignore-cr-at-eol
+[credential]
+	helper = store
