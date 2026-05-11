@@ -29,3 +29,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(zoxide init bash)"
 
 #fastfetch
+
+# Python
+export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.12/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.12/libexec/bin:$PATH"
