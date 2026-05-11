@@ -1,11 +1,27 @@
+# Temporary
+flatpak "org.eclipse.Java"
+
+
+# Taps
+tap "anomalyco/tap"
+tap "hashicorp/tap"
+
 # General tools
 brew "age"
+brew "anomalyco/tap/opencode"
 brew "ansible"
 brew "atuin"
+brew "bat"
 brew "butane"
+brew "cloudflared"
+brew "curl"
+brew "docker-completion"
+brew "dysk"
 brew "eza"
 brew "fastfetch"
 brew "fzf"
+brew "git"
+brew "hashicorp/tap/terraform"
 brew "helm"
 brew "htop"
 brew "jq"
@@ -13,17 +29,40 @@ brew "just"
 brew "k9s"
 brew "kubectl"
 brew "kubectx"
+brew "kubernetes-cli"
+brew "lazygit"
 brew "nmap"
+brew "node"
+brew "nvm"
 brew "nvtop"
 brew "ranger"
+brew "rustup"
 brew "starship"
 brew "tmux"
+brew "tpm"
+brew "unzip"
+brew "wget"
 brew "yadm"
+brew "zip"
 brew "zoxide"
-
 
 # Rust + Rust packages
 brew "cargo-binstall"
 brew "cargo-watch"
 brew "dysk"
 brew "rustup-init"
+
+# Python
+brew "python@3.14", link: false
+brew "python@3.12", link: true
+
+# Flatpaks
+flatpak "ch.protonmail.protonmail-bridge"
+flatpak "com.obsproject.Studio"
+flatpak "com.spotify.Client"
+flatpak "community.pathofbuilding.PathOfBuilding"
+flatpak "dev.vencord.Vesktop"
+flatpak "md.obsidian.Obsidian"
+flatpak "org.cryptomator.Cryptomator"
+flatpak "org.gimp.GIMP"
+flatpak "org.videolan.VLC"
