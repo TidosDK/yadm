@@ -1,0 +1,141 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "which_key": {
+    "enabled": false,
+  },
+  "show_wrap_guides": true,
+  "unnecessary_code_fade": 0.3,
+  "hide_mouse": "never",
+  "cursor_shape": "bar",
+  "text_rendering_mode": "platform_default",
+  "agent_buffer_font_size": 14.0,
+  "agent_ui_font_size": 16.0,
+  "ui_font_family": ".ZedMono",
+  "buffer_line_height": "comfortable",
+  "buffer_font_weight": 400.0,
+  "terminal": {
+    "font_family": ".ZedMono",
+  },
+  "git": {
+    "blame": {
+      "show_avatar": true,
+    },
+    "inline_blame": {
+      "enabled": false,
+    },
+  },
+  "proxy": "",
+  "title_bar": {
+    "show_sign_in": true,
+    "show_onboarding_banner": true,
+    "show_project_items": true,
+    "show_branch_name": true,
+    "show_branch_status_icon": false,
+  },
+  "status_bar": {
+    "show_active_file": false,
+  },
+  "project_panel": {
+    "hide_hidden": false,
+    "hide_root": false,
+    "sticky_scroll": true,
+    "git_status_indicator": true,
+    "diagnostic_badges": false,
+    "scrollbar": {
+      "horizontal_scroll": true,
+    },
+    "bold_folder_labels": false,
+    "auto_fold_dirs": true,
+    "auto_reveal_entries": true,
+    "file_icons": true,
+    "folder_icons": true,
+    "git_status": true,
+    "indent_size": 20.0,
+    "entry_spacing": "comfortable",
+    "hide_gitignore": false,
+    "dock": "right",
+  },
+  "outline_panel": {
+    "button": false,
+    "dock": "right",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "right",
+  },
+  "agent": {
+    "default_width": 640.0,
+    "dock": "left",
+    "flexible": true,
+    "default_profile": "ask",
+    "default_model": {
+      "enable_thinking": true,
+      "provider": "ollama",
+      "model": "gemma4:31b",
+    },
+  },
+  "language_models": {
+    "ollama": {
+      "context_window": 32768,
+      "api_url": "http://192.168.0.229:11434",
+      "auto_discover": true,
+    },
+  },
+  "disable_ai": false,
+  "cli_default_open_behavior": "existing_window",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "cursor_blink": true,
+  "file_types": {
+    "ini": ["*.container", "*.network"],
+  },
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme",
+  },
+  "base_keymap": "VSCode",
+  "ui_font_size": 16.0,
+  "buffer_font_size": 16.0,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Ayu Dark",
+  },
+  "show_whitespaces": "trailing",
+  "whitespace_map": {
+    "space": "▒",
+    "tab": "▒",
+  },
+  "theme_overrides": {
+    "Ayu Dark": {
+      "editor.invisible": "#ff0000",
+    },
+  },
+  "auto_install_extensions": {
+    "ansible": true,
+    "dockerfile": true,
+    "env": true,
+    "git-firefly": true,
+    "html": true,
+    "ini": true,
+    "jetbrains-new-ui-icons": true,
+    "log": true,
+    "material-icon-theme": true,
+    "terraform": true,
+    "toml": true,
+    "typst": true,
+    "xml": true,
+  },
+}
