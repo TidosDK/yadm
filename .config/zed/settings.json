@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "provider": "zed"
+  },
   "which_key": {
     "enabled": false,
   },
@@ -73,14 +76,21 @@
     "dock": "right",
   },
   "agent": {
+    "favorite_models": [
+      {
+        "provider": "ollama",
+        "model": "gemma4:e4b",
+        "enable_thinking": true,
+      },
+    ],
     "default_width": 640.0,
     "dock": "left",
     "flexible": true,
     "default_profile": "ask",
     "default_model": {
-      "enable_thinking": true,
+      "enable_thinking": false,
       "provider": "ollama",
-      "model": "gemma4:31b",
+      "model": "gemma4:e4b",
     },
   },
   "language_models": {
@@ -88,6 +98,18 @@
       "context_window": 32768,
       "api_url": "http://192.168.0.229:11434",
       "auto_discover": true,
+      "available_models": [
+        {
+          "name": "gemma4:e4b",
+          "max_tokens": 32768,
+          "keep_alive": "30m",
+        },
+        {
+          "name": "llama3.2:3b",
+          "max_tokens": 32768,
+          "keep_alive": "30m",
+        },
+      ],
     },
   },
   "disable_ai": false,

@@ -59,5 +59,27 @@
     "unbind": {
       "ctrl-shift-b": "outline_panel::ToggleFocus"
     }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-'": [
+        "editor::ToggleComments",
+        {
+          "advance_downwards": false
+        }
+      ]
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-k ctrl-c": [
+        "editor::ToggleComments",
+        {
+          "advance_downwards": false
+        }
+      ]
+    }
   }
 ]

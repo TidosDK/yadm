@@ -5,6 +5,7 @@ flatpak "org.eclipse.Java"
 # Taps
 tap "anomalyco/tap"
 tap "hashicorp/tap"
+tap "homebrew-ffmpeg/ffmpeg"
 
 # General tools
 brew "age"
@@ -19,6 +20,7 @@ brew "docker-completion"
 brew "dysk"
 brew "eza"
 brew "fastfetch"
+brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-srt"]
 brew "fzf"
 brew "git"
 brew "hashicorp/tap/terraform"
