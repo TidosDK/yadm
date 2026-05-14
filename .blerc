@@ -50,3 +50,9 @@ bleopt exec_errexit_mark=$'\e[91m[error %d]\e[m'
 
 # Sets the inline suggestion to0 a dark grey text with no background
 ble-face auto_complete='fg=242'
+
+
+
+# Custom keybindings
+ble-bind -f 'M-BS' kill-backward-eword
+ble-bind -f 'C-M-?' kill-backward-eword
